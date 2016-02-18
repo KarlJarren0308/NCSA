@@ -64,6 +64,45 @@
             <div id="cell-content" class="cell auto-size padding20 pane-scroll">
                 <h1 class="text-light">View Logs</h1>
                 <hr><br>
+                <table id="logs-table" class="table striped border bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th width="15%">Date & Time Logged In</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            require_once('requests/connection.php');
+
+                            $connection = new Connection();
+                            $connection->open();
+                            
+                            $connection->query("SELECT * FROM attendance INNER JOIN accounts ON attendance.Account_ID=accounts.Account_ID");
+
+                            while($row = $connection->fetch_assoc()) {
+                                if($row['Account_Type'] == 'Student') {
+                                    $type = 'Student';
+                                } else {
+                                    $type = 'Faculty';
+                                }
+
+                                if(strlen($row[$type . '_Middle_Name']) > 1) {
+                                    $name = $row[$type . '_Last_Name'] . ', ' . $row[$type . '_First_Name'] . ' ' . substr($row[$type . '_Middle_Name'], 0, 1) . '.';
+                                } else {
+                                    $name = $row[$type . '_Last_Name'] . ', ' . $row[$type . '_First_Name'];
+                                }
+                                
+                                echo '<tr>';
+                                echo '<td>' . $name . '</td>';
+                                echo '</tr>';
+                            }
+
+                            $connection->close();
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -71,10 +110,7 @@
 <div id="dialog" class="dialog" data-overlay="true" data-overlay-color="op-dark" data-width="50%" data-role="dialog">
     <div id="dialog-inner" class="container-fluid"></div>
 </div>
-<script src="assets/js/opac.js"></script>
-<script>
-    $('#cell-sidebar').scrollTop(9999);
-</script>
+<script src="assets/js/view_logs.js"></script>
 
 <?php
     include_once('assets/system/footer.php');
