@@ -29,6 +29,14 @@
                     $_SESSION['account_last_name'] = $row['Student_Last_Name'];
                     $_SESSION['account_image'] = $row['Image'];
                     $_SESSION['account_type'] = $accountType;
+                    $dateStamp = date('Y-m-d');
+                    $timeStamp = date('H:i:s');
+
+                    $connection->query("SELECT * FROM attendance WHERE Account_ID='$row[Student_ID]' AND Date_Stamp='$dateStamp'");
+
+                    if($connection->num_rows() == 0) {
+                        $connection->query("INSERT INTO attendance (Account_ID, Date_Stamp, Time_Stamp) VALUES ('$row[Student_ID]', '$dateStamp', '$timeStamp')");
+                    }
 
                     echo json_encode(array('status' => 'Success', 'message' => 'Login Successful. Please Wait...', 'redirect' => './'));
                 } else {
@@ -46,6 +54,14 @@
                     $_SESSION['account_last_name'] = $row['Faculty_Last_Name'];
                     $_SESSION['account_image'] = $row['Image'];
                     $_SESSION['account_type'] = $accountType;
+                    $dateStamp = date('Y-m-d');
+                    $timeStamp = date('H:i:s');
+
+                    $connection->query("SELECT * FROM attendance WHERE Account_ID='$row[Faculty_ID]' AND Date_Stamp='$dateStamp'");
+
+                    if($connection->num_rows() == 0) {
+                        $connection->query("INSERT INTO attendance (Account_ID, Date_Stamp, Time_Stamp) VALUES ('$row[Faculty_ID]', '$dateStamp', '$timeStamp')");
+                    }
 
                     echo json_encode(array('status' => 'Success', 'message' => 'Login Successful. Please Wait...', 'redirect' => './control_panel'));
                 } else {
