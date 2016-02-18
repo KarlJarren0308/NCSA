@@ -1,5 +1,8 @@
 $(document).ready(function() {
     var list = [];
+
+    $('#materials-table').dataTable();
+
     $('[data-input="borrower"]').change(function() {
         setDialogLoader();
         openDialog();
@@ -13,8 +16,8 @@ $(document).ready(function() {
             success: function(response) {
                 closeDialog();
 
+                $('#materials-table').dataTable().fnDestroy();
                 $('#materials-table > tbody').html(response);
-
                 $('#materials-table').dataTable({
                     aoColumnDefs: [
                         { bSearchable: false, bSortable: false, aTargets: [3] }
@@ -70,8 +73,8 @@ $(document).ready(function() {
 
                         $('[data-button="print-button"]').click(function() {
                             //TODO: Print Receipt
-                            closeDialog
-                            $('#dialog').html('<iframe style="display: none;" src="requests/receipt.php" onload="this.contentWindow.print();"></iframe>');
+                            closeDialog();
+                            $('#dialog').html('<iframe style="display: none;" src="requests/receipt.php?data='+response['data']+'" onload="this.contentWindow.print();"></iframe>');
 
                             //location.reload();
                         });
