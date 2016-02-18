@@ -107,7 +107,7 @@
                                 echo '<td>' . $name . '</td>';
                                 echo '<td>' . $row['Material_Title'] . '</td>';
                                 echo '<td>' . date('F d, Y', strtotime($row['Date_Borrowed'])) . '</td>';
-                                echo '<td>' . date('F d, Y', strtotime($row['Due_Date'])) . '</td>';
+                                echo '<td>' . date('F d, Y', strtotime($row['Final_Due_Date'])) . '</td>';
                                 echo '<td>' . date('F d, Y', strtotime($row['Date_Returned'])) . '</td>';
                                 echo '<td>' . $row['Penalty'] . '</td>';
                                 echo '</tr>';
