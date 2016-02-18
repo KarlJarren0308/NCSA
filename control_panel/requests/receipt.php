@@ -16,9 +16,13 @@
         <br>
         <?php
             require_once('connection.php');
+            require_once('control_panel_settings.php');
+            require_once('functions.php');
 
             $connection = new Connection();
             $connection->open();
+
+            $settings = new ControlPanelSettings('../');
 
             $borrowID = $connection->escape_string($_GET['data']);
 
@@ -33,8 +37,10 @@
 
             if($row['Account_Type'] == 'Student') {
                 $type = 'Student';
+                $days = $settings->getSetting('studentLoanPeriod');
             } else {
                 $type = 'Faculty';
+                $days = $settings->getSetting('facultyLoanPeriod');
             }
 
             if(strlen($row[$type . '_Middle_Name']) > 1) {
@@ -45,7 +51,28 @@
 
             echo '<div>Borrower: <span class="typewriter">' . $name . '</span></div>';
             echo '<div>Date Borrowed: ' . date('F d, Y', strtotime($rowLoan['Date_Borrowed'])) . '</div>';
-            echo '<div>Due Date: ' . date('F d, Y', strtotime($rowLoan['Due_Date'])) . '</div>';
+
+            $dueDate = date('F d, Y', strtotime('+' . $days . ' days', strtotime($rowLoan['Date_Borrowed'])));
+            $dueDays = ceil((strtotime($dueDate) - strtotime($rowLoan['Date_Borrowed'])) / 86400);
+            $i = 1;
+
+            while($i <= $dueDays) {
+                $currentDate = date('Y-m-d', strtotime('+' . $i . ' days', strtotime($rowLoan['Date_Borrowed'])));
+
+                if(isWeekend($currentDate)) {
+                    $dueDays++;
+                    $dueDate = nextDay($dueDate);
+                } else {
+                    if(isHoliday($connection, $currentDate)) {
+                        $dueDays++;
+                        $dueDate = nextDay($dueDate);
+                    }
+                }
+
+                $i++;
+            }
+
+            echo '<div>Due Date: ' . date('F d, Y', strtotime($dueDate)) . '</div>';
             echo '<br>';
             echo 'Borrowed Material(s):';
             echo '<ul class="typewriter beautify">';
