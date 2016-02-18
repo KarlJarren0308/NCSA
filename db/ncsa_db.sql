@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2016 at 12:58 AM
+-- Generation Time: Feb 18, 2016 at 10:44 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -491,14 +491,14 @@ CREATE TABLE IF NOT EXISTS `barcodes` (
 --
 
 INSERT INTO `barcodes` (`Material_ID`, `Barcode_Number`, `Accession_Number`, `Availability`) VALUES
-(1, '3 11096 850 7', 1, 'false'),
+(1, '3 11096 850 7', 1, 'true'),
 (2, '5 02569 861 8', 1, 'true'),
 (3, '6 63897 910 1', 1, 'true'),
 (4, '6 76862 696 1', 1, 'true'),
 (5, '3 45619 187 2', 1, 'true'),
 (6, '0 58751 208 8', 1, 'true'),
 (7, '4 49411 103 5', 1, 'true'),
-(8, '7 82402 056 6', 1, 'false'),
+(8, '7 82402 056 6', 1, 'true'),
 (9, '4 82323 123 5', 1, 'true'),
 (9, '1 89850 864 3', 2, 'true'),
 (10, '5 11616 442 6', 1, 'true'),
@@ -527,15 +527,7 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   `Librarian_ID` varchar(11) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `Date_Borrowed` datetime NOT NULL,
   `Due_Date` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `borrow`
---
-
-INSERT INTO `borrow` (`Borrow_ID`, `Borrowers_ID`, `Librarian_ID`, `Date_Borrowed`, `Due_Date`) VALUES
-(1, '20120115744', 'admin', '2016-02-16 10:15:53', '2016-02-17 00:00:00'),
-(2, '20120115744', 'admin', '2016-02-18 07:23:31', '2016-02-19 07:23:31');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -547,17 +539,9 @@ CREATE TABLE IF NOT EXISTS `borrow_details` (
 `Borrow_Details_ID` int(10) NOT NULL,
   `Borrow_ID` int(10) NOT NULL,
   `Barcode_Number` varchar(255) NOT NULL,
+  `Final_Due_Date` datetime NOT NULL,
   `Status` varchar(8) NOT NULL DEFAULT 'active'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `borrow_details`
---
-
-INSERT INTO `borrow_details` (`Borrow_Details_ID`, `Borrow_ID`, `Barcode_Number`, `Status`) VALUES
-(1, 1, '1 34600 485 2', 'inactive'),
-(2, 1, '7 82402 056 6', 'active'),
-(3, 2, '3 11096 850 7', 'active');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -665,14 +649,7 @@ CREATE TABLE IF NOT EXISTS `holidays` (
   `Month` int(2) NOT NULL,
   `Day` int(2) NOT NULL,
   `Year` int(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `holidays`
---
-
-INSERT INTO `holidays` (`Holiday_ID`, `Holiday`, `Holiday_Type`, `Month`, `Day`, `Year`) VALUES
-(2, 'All Classes are Suspended', 'Suspension', 9, 25, 2015);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -727,14 +704,7 @@ CREATE TABLE IF NOT EXISTS `penalties` (
   `Penalty` double NOT NULL,
   `Date_of_Payment` date NOT NULL,
   `Status` varchar(8) NOT NULL DEFAULT 'active'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `penalties`
---
-
-INSERT INTO `penalties` (`Penalty_ID`, `Return_ID`, `Penalty`, `Date_of_Payment`, `Status`) VALUES
-(1, 1, 10, '2016-02-18', 'inactive');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -790,15 +760,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `Borrowers_ID` varchar(11) NOT NULL,
   `Date_Reserved` datetime NOT NULL,
   `Status` varchar(8) NOT NULL DEFAULT 'active'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `reservations`
---
-
-INSERT INTO `reservations` (`Reservation_ID`, `Material_ID`, `Borrowers_ID`, `Date_Reserved`, `Status`) VALUES
-(1, 11, 'admin', '2016-02-08 19:50:07', 'inactive'),
-(2, 1, '20120115744', '2016-02-18 07:23:01', 'active');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -810,14 +772,7 @@ CREATE TABLE IF NOT EXISTS `return` (
 `Return_ID` int(10) NOT NULL,
   `Borrow_Details_ID` int(10) NOT NULL,
   `Date_Returned` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `return`
---
-
-INSERT INTO `return` (`Return_ID`, `Borrow_Details_ID`, `Date_Returned`) VALUES
-(1, 1, '2016-02-18 05:49:10');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1334,12 +1289,12 @@ MODIFY `Author_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=66;
 -- AUTO_INCREMENT for table `borrow`
 --
 ALTER TABLE `borrow`
-MODIFY `Borrow_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `Borrow_ID` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `borrow_details`
 --
 ALTER TABLE `borrow_details`
-MODIFY `Borrow_Details_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `Borrow_Details_ID` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -1354,7 +1309,7 @@ MODIFY `Collection_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `holidays`
 --
 ALTER TABLE `holidays`
-MODIFY `Holiday_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `Holiday_ID` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `materials`
 --
@@ -1364,7 +1319,7 @@ MODIFY `Material_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 -- AUTO_INCREMENT for table `penalties`
 --
 ALTER TABLE `penalties`
-MODIFY `Penalty_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `Penalty_ID` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `publishers`
 --
@@ -1374,12 +1329,12 @@ MODIFY `Publisher_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-MODIFY `Reservation_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `Reservation_ID` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `return`
 --
 ALTER TABLE `return`
-MODIFY `Return_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `Return_ID` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `weeding`
 --
