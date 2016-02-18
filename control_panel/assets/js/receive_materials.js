@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    $('#materials-table').dataTable();
+
     $('[data-input="borrower"]').change(function() {
         setDialogLoader();
         openDialog();
@@ -11,9 +13,9 @@ $(document).ready(function() {
             },
             success: function(response) {
                 closeDialog();
-
+                
+                $('#materials-table').dataTable().fnDestroy();
                 $('#materials-table > tbody').html(response);
-
                 $('#materials-table').dataTable({
                     aoColumnDefs: [
                         { bSearchable: false, bSortable: false, aTargets: [6] }
