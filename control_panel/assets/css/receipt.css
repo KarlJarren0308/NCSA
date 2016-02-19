@@ -6,6 +6,14 @@ ul.beautify {
     text-align: center;
 }
 
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
 .box {
     border: 1px solid black;
     display: inline-block;
@@ -34,4 +42,7 @@ ul.beautify {
 }
 
 .underscore {
+    border-bottom: 1px solid black;
+    display: inline-block;
+    width: 75%;
 }
