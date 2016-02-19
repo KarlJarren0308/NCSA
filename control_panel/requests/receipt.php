@@ -26,6 +26,7 @@
             $rowLoan = $connection->fetch_assoc();
 
             $borrower = $rowLoan['Borrowers_ID'];
+            $librarian = $rowLoan['Librarian_ID'];
 
             $connection->query("SELECT * FROM accounts LEFT JOIN faculties ON accounts.Account_ID=faculties.Faculty_ID LEFT JOIN students ON accounts.Account_ID=students.Student_ID WHERE accounts.Account_ID='$borrower'");
             $row = $connection->fetch_assoc();
@@ -56,6 +57,21 @@
             }
 
             echo '</ul>';
+            echo '<br><br><br>';
+            echo '<div class="align-center">';
+
+            $connection->query("SELECT * FROM faculties WHERE Faculty_ID='$librarian'");
+            $row = $connection->fetch_assoc();
+
+            if(strlen($row['Faculty_Middle_Name']) > 1) {
+                $name = $row['Faculty_First_Name'] . ' ' . substr($row['Faculty_Middle_Name'], 0, 1) . '. ' . $row['Faculty_Last_Name'];
+            } else {
+                $name = $row['Faculty_First_Name'] . ' ' . $row['Faculty_Last_Name'];
+            }
+
+            echo '<div class="underscore typewriter">' . $name . '</div>';
+            echo '<div>Librarian\'s Signature over printed name.</div>';
+            echo '</div>';
 
             $connection->close();
         ?>
