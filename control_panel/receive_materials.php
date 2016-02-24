@@ -117,10 +117,6 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            <br><br><br>
-                            <div class="align-right">
-                                <button class="button primary" data-button="return-button">Return Material(s)</button>
-                            </div>
                         </div>
                     </div>
                 </div>
