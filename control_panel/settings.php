@@ -72,7 +72,7 @@
                     <div class="row cells12">
                         <div class="cell colspan4 padding10">
                             <div class="panel">
-                                <div class="heading">
+                                <div class="heading bg-pink">
                                     <span class="title">Penalty Settings</span>
                                 </div>
                                 <div class="content padding10">
@@ -90,7 +90,7 @@
                         </div>
                         <div class="cell colspan4 padding10">
                             <div class="panel">
-                                <div class="heading">
+                                <div class="heading bg-pink">
                                     <span class="title">Student Settings</span>
                                 </div>
                                 <div class="content padding10">
@@ -123,7 +123,7 @@
                         </div>
                         <div class="cell colspan4 padding10">
                             <div class="panel">
-                                <div class="heading">
+                                <div class="heading bg-pink">
                                     <span class="title">Faculty Settings</span>
                                 </div>
                                 <div class="content padding10">
