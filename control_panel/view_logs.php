@@ -79,7 +79,7 @@
                             $connection = new Connection();
                             $connection->open();
                             
-                            $connection->query("SELECT * FROM attendance INNER JOIN accounts ON attendance.Account_ID=accounts.Account_ID");
+                            $connection->query("SELECT * FROM attendance INNER JOIN accounts ON attendance.Account_ID=accounts.Account_ID LEFT JOIN faculties ON accounts.Account_ID=faculties.Faculty_ID LEFT JOIN students ON accounts.Account_ID=students.Student_ID");
 
                             while($row = $connection->fetch_assoc()) {
                                 if($row['Account_Type'] == 'Student') {
@@ -96,6 +96,8 @@
                                 
                                 echo '<tr>';
                                 echo '<td>' . $name . '</td>';
+                                echo '<td>' . $row['Account_Type'] . '</td>';
+                                echo '<td>' . date('F d, Y (h:iA)', strtotime($row['Date_Stamp'] . ' ' . $row['Time_Stamp'])) . '</td>';
                                 echo '</tr>';
                             }
 
