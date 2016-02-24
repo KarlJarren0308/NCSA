@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('Asia/Manila');
     session_start();
 
     if(!isset($_SESSION['account_username'])) {
@@ -64,14 +65,99 @@
             <div id="cell-content" class="cell auto-size padding20 pane-scroll">
                 <h1 class="text-light">Generate Reports</h1>
                 <hr><br>
+                <div class="grid condensed">
+                    <div class="row cells12">
+                        <div class="cell colspan4 padding10">
+                            <div class="panel">
+                                <div class="heading bg-pink">
+                                    <span class="title">Monthly Materials Report</span>
+                                </div>
+                                <div class="content padding10">
+                                    <form data-form="monthly-materials-report-form">
+                                        <label>Date:</label>
+                                        <div class="input-control select full-size">
+                                            <select data-input="date" required>
+                                                <option value="" selected disabled>Choose an option...</option>
+                                                <?php
+                                                    for($i = date('Y'); $i >= 2010; $i--) {
+                                                        for($j = 12; $j >= 1; $j--) {
+                                                            echo '<option value="' . date('Y-m', strtotime($i . '-' . $j . '-01')) . '">' . date('F Y', strtotime($i . '-' . $j . '-01')) . '</option>';
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="align-right">
+                                            <input type="submit" class="button primary" value="Generate">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cell colspan4 padding10">
+                            <div class="panel">
+                                <div class="heading bg-pink">
+                                    <span class="title">Monthly Transactions Report</span>
+                                </div>
+                                <div class="content padding10">
+                                    <form data-form="monthly-transactions-report-form">
+                                        <label>Date:</label>
+                                        <div class="input-control select full-size">
+                                            <select data-input="date" required>
+                                                <option value="" selected disabled>Choose an option...</option>
+                                                <?php
+                                                    for($i = date('Y'); $i >= 2010; $i--) {
+                                                        for($j = 12; $j >= 1; $j--) {
+                                                            echo '<option value="' . date('Y-m', strtotime($i . '-' . $j . '-01')) . '">' . date('F Y', strtotime($i . '-' . $j . '-01')) . '</option>';
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="align-right">
+                                            <input type="submit" class="button primary" value="Generate">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cell colspan4 padding10">
+                            <div class="panel">
+                                <div class="heading bg-pink">
+                                    <span class="title">Students Report</span>
+                                </div>
+                                <div class="content padding10">
+                                    <form data-form="students-report-form">
+                                        <div class="align-right">
+                                            <input type="submit" class="button primary" value="Generate">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="panel">
+                                <div class="heading bg-pink">
+                                    <span class="title">Barcode Report</span>
+                                </div>
+                                <div class="content padding10">
+                                    <form data-form="barcode-report-form">
+                                        <div class="align-right">
+                                            <input type="submit" class="button primary" value="Generate">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div id="dialog" class="dialog" data-overlay="true" data-overlay-color="op-dark" data-width="50%" data-role="dialog">
+<div id="dialog" class="dialog" data-overlay-click-close="true" data-overlay="true" data-overlay-color="op-dark" data-width="50%" data-role="dialog">
     <div id="dialog-inner" class="container-fluid"></div>
 </div>
-<script src="assets/js/opac.js"></script>
+<script src="assets/js/generate_reports.js"></script>
 <script>
     $('#cell-sidebar').scrollTop(9999);
 </script>
