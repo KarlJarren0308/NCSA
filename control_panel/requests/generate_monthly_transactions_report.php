@@ -37,7 +37,7 @@
             $name = $row[$type . '_First_Name'] . ' ' . $row[$type . '_Last_Name'];
         }
 
-        $connection2->query("SELECT * FROM `return` WHERE Borrow_Details_ID='$row[Borrow_Details_ID]'");
+        $connection2->query("SELECT * FROM `return` LEFT JOIN penalties ON `return`.Return_ID=penalties.Return_ID WHERE `return`.Borrow_Details_ID='$row[Borrow_Details_ID]'");
         $scan2 = $connection2->num_rows();
 
         if($scan2 == 0) {

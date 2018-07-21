@@ -71,6 +71,10 @@
 
     $penalty = ceil((strtotime(date('Y-m-d')) - strtotime($duedueDate)) / 86400) * (double) $settings->getSetting('penalty');
 
+    if($penalty < 0) {
+        $penalty = 0;
+    }
+
     $connection->query("UPDATE borrow_details SET Final_Due_Date='$dueDate', Status='inactive' WHERE Borrow_Details_ID='$id'");
 
     if($connection->affected_rows() == 1) {
